@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>pageHomeAdmin</servlet-name>
-        <servlet-class>admin.pageHomeAdmin</servlet-class>
+        <servlet-class>admin.PageHomeAdmin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PageHomeUser</servlet-name>
@@ -15,6 +15,22 @@
     <servlet>
         <servlet-name>ServletTemporaireUser</servlet-name>
         <servlet-class>users.ServletTemporaireUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmpruntDeLivre</servlet-name>
+        <servlet-class>admin.EmpruntDeLivre</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RetourDeLivre</servlet-name>
+        <servlet-class>admin.RetourDeLivre</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CRUDLivre</servlet-name>
+        <servlet-class>admin.CRUDLivre</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CRUDUtilisateur</servlet-name>
+        <servlet-class>admin.CRUDUtilisateur</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>pageHomeAdmin</servlet-name>
@@ -31,6 +47,22 @@
     <servlet-mapping>
         <servlet-name>ServletTemporaireUser</servlet-name>
         <url-pattern>/ServletTemporaireUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmpruntDeLivre</servlet-name>
+        <url-pattern>/EmpruntDeLivre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RetourDeLivre</servlet-name>
+        <url-pattern>/RetourDeLivre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CRUDLivre</servlet-name>
+        <url-pattern>/CRUDLivre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CRUDUtilisateur</servlet-name>
+        <url-pattern>/CRUDUtilisateur</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
