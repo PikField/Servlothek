@@ -8,16 +8,15 @@ package users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Matthieu PAPIER
+ * @author adminGRIT
  */
-public class PageHomeUser extends HttpServlet {
+public class ServletTemporaireUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,52 +30,27 @@ public class PageHomeUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            
-            //REquest donné cookie.
-            
-            //Cookie ck[]=request.getCookies();  
-            //String id = ck[0].toString();
-            
-            
-            String prenom = "Antoine";           
-            int i=7;
-            //cookie + récupérations des données BDD
-            
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+
+            String nom = request.getParameter("name");
+            String prenom = request.getParameter("surname");
+            String mail = request.getParameter("email");
+            String mdp = request.getParameter("password");
+            
+            //APPEL DE LA FONCTION AFIN DE MODIFIER LES PARAMETRES
+
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Page utilisateur</title>");            
+            out.println("<title>HTML Meta Tag</title>");
+            out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/PageHomeUser' />");
             out.println("</head>");
-            
-            
-            
-            
-            
             out.println("<body>");
-            out.println("<input type=submit value='Déconnexion' />");
-            out.println("<center><h1>Page de gestion utilisateur</h1></center>");
-            out.println("<div align='right'>");
-            out.println("<input type=button onclick=window.location.href='/Slervothek/PageModificationUser'; value='Modification du profil' />");
-            out.println("</div>");
-            out.println("<br/>");
-            out.println("<br/>");
-            
-            out.println("<p>Bonjour "+ prenom+",");
-            out.println("<br/>");
-            out.println("<br/>");
-            out.println("Vous avez à ce jour emprunté les livres suivants : ");
-            out.println("<br/>");
-            out.println("<br/>");
-                       while(i!=0){
-               out.println("-Titre : <u>"+prenom+"</u>,de l'auteur : <u>"+prenom+"</u>, emprunté le : <u>"+prenom+"</u> et à rendre avant le : <u>"+prenom+"</u>");
-               out.println("<br/>");
-               i--;
-           }
-            
+            out.println("<p>Hello HTML5!</p>");
             out.println("</body>");
             out.println("</html>");
+
         }
     }
 

@@ -8,6 +8,14 @@
         <servlet-name>PageHomeUser</servlet-name>
         <servlet-class>users.PageHomeUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PageModificationUser</servlet-name>
+        <servlet-class>users.PageModificationUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletTemporaireUser</servlet-name>
+        <servlet-class>users.ServletTemporaireUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>pageHomeAdmin</servlet-name>
         <url-pattern>/pageHomeAdmin</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>PageHomeUser</servlet-name>
         <url-pattern>/PageHomeUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PageModificationUser</servlet-name>
+        <url-pattern>/PageModificationUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTemporaireUser</servlet-name>
+        <url-pattern>/ServletTemporaireUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
