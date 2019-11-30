@@ -3,26 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package API;
+package admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import utils.GestionCoockies;
-
 /**
  *
- * @author Matthieu PAPIER
+ * @author adminGRIT
  */
-public class ServletConnexion extends HttpServlet {
+public class CRUDUtilisateur extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,40 +30,20 @@ public class ServletConnexion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        
-        
-        
-        RequestDispatcher rd;
-        switch(userInfosIsCorrect(login,password)){
-            case 1:
-                GestionCoockies.createCookieUser(response, "1","test","test",login,false);
-                rd=request.getRequestDispatcher("pageHomeAdmin");  
-                rd.forward(request,response);
-                break;
-            case 2:
-                GestionCoockies.createCookieUser(response, "2","test","test",login,true);
-                rd=request.getRequestDispatcher("PageHomeUser");  
-                rd.forward(request,response);
-                break;
-            default:
-                rd=request.getRequestDispatcher("index.html");  
-                rd.include(request,response); 
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>CRUD Utilisateur</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<center><h1>Création, Lecture, Modification Suppression d'utilisateur</h1></center>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
-    
-    private int userInfosIsCorrect(String login,String password){
-        if(login.equals("a")&&password.equals("a"))
-            return 1;
-        if(login.equals("b")&&password.equals("b"))
-            return 2;
-        return 0;
-    }
-    
 
-   
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

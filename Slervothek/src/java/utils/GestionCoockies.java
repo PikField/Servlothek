@@ -8,6 +8,7 @@ package utils;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 /**
  *
@@ -33,8 +34,28 @@ public class GestionCoockies {
         response.addCookie(cookie);
         cookie = new Cookie(NOM, nom);
         response.addCookie(cookie);
+        
     }
      
+    public static void supprimerCookies(HttpServletRequest request,HttpServletResponse response){
+        Cookie[] cookies = null;
+        cookies = request.getCookies();
+        for(int i=0;i<cookies.length;i++){
+            cookies[i].setMaxAge(0);
+            response.addCookie(cookies[i]);
+        }
+    }
+    
+    public static void supprimerUnCookie(HttpServletRequest request,HttpServletResponse response,String nomCoockie) {
+        Cookie[] cookies = null;
+        cookies = request.getCookies();
+        for(int i=0;i<cookies.length;i++){
+            if(cookies[i].getName().equals(nomCoockie)){
+                cookies[i].setMaxAge(0);
+                response.addCookie(cookies[i]);
+            }
+        }
+    }
          
     public static Cookie[] getCoockieUser(HttpServletRequest request){
        Cookie[] cookies = null;
