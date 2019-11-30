@@ -9,6 +9,10 @@
         <servlet-class>users.PageHomeUser</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>TestDB</servlet-name>
+        <servlet-class>database.TestDB</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ServletConnexion</servlet-name>
         <servlet-class>API.ServletConnexion</servlet-class>
     </servlet>
@@ -70,6 +74,10 @@
     <servlet-mapping>
         <servlet-name>CRUDUtilisateur</servlet-name>
         <url-pattern>/CRUDUtilisateur</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestDB</servlet-name>
+        <url-pattern>/TestDB</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
