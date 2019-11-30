@@ -8,6 +8,10 @@
         <servlet-name>PageHomeUser</servlet-name>
         <servlet-class>users.PageHomeUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletConnexion</servlet-name>
+        <servlet-class>API.ServletConnexion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>pageHomeAdmin</servlet-name>
         <url-pattern>/pageHomeAdmin</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>PageHomeUser</servlet-name>
         <url-pattern>/PageHomeUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletConnexion</servlet-name>
+        <url-pattern>/ServletConnexion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
