@@ -5,6 +5,7 @@
  */
 package API;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utils.GestionCoockies;
+import utils.Utilisateur;
 
 /**
  *
@@ -36,6 +38,7 @@ public class ServletConnexion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        ConnectDatabase cd = new ConnectDatabase();
         
         String login = request.getParameter("login");
         String password = request.getParameter("password");
@@ -43,30 +46,22 @@ public class ServletConnexion extends HttpServlet {
         
         
         RequestDispatcher rd;
-        switch(userInfosIsCorrect(login,password)){
-            case 1:
-                GestionCoockies.createCookieUser(response, "1","test","test",login,false);
-                rd=request.getRequestDispatcher("pageHomeAdmin");  
-                rd.forward(request,response);
-                break;
-            case 2:
-                GestionCoockies.createCookieUser(response, "2","test","test",login,true);
-                rd=request.getRequestDispatcher("PageHomeUser");  
-                rd.forward(request,response);
-                break;
-            default:
-                rd=request.getRequestDispatcher("index.html");  
-                rd.include(request,response); 
+        Utilisateur user = cd.connnectUtilisateur(login,password);
+        
+        if(user == null){
+            rd=request.getRequestDispatcher("index.html");  
+            rd.include(request,response);
+        }else if(user.isRole()){
+            GestionCoockies.createCookieUser(response, user.getNom(),user.getPrenom(),user.getMail(),user.isRole());
+            rd=request.getRequestDispatcher("pageHomeAdmin");  
+            rd.forward(request,response);
+        }else{
+            GestionCoockies.createCookieUser(response, user.getNom(),user.getPrenom(),user.getMail(),user.isRole());
+            rd=request.getRequestDispatcher("PageHomeUser");  
+            rd.forward(request,response);
         }
     }
     
-    private int userInfosIsCorrect(String login,String password){
-        if(login.equals("a")&&password.equals("a"))
-            return 1;
-        if(login.equals("b")&&password.equals("b"))
-            return 2;
-        return 0;
-    }
     
 
    

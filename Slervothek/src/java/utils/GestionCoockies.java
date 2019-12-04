@@ -18,21 +18,21 @@ import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 public class GestionCoockies {
     
-    private static final String NOM = "nom";
-    private static final String PRENOM = "prenom";
-    private static final String MAIL = "mail";
-    private static final String ID = "id";
+    public static final String NOM = "nom";
+    public static final String PRENOM = "prenom";
+    public static final String MAIL = "mail";
+    public static final String ROLE = "role";
         
-    public static void createCookieUser(HttpServletResponse response, String id, String nom, String prenom, String mail, boolean estAdmin){
-        Cookie cookie = new Cookie(ID, id);
-        response.addCookie(cookie);
-        cookie = new Cookie(NOM, nom);
+    public static void createCookieUser(HttpServletResponse response, String nom, String prenom, String mail, boolean estAdmin){
+        Cookie cookie = new Cookie(NOM, nom);
         response.addCookie(cookie);
         cookie = new Cookie(PRENOM, prenom);
         response.addCookie(cookie);
         cookie = new Cookie(MAIL, mail);
         response.addCookie(cookie);
         cookie = new Cookie(NOM, nom);
+        response.addCookie(cookie);
+        cookie = new Cookie(ROLE, String.valueOf(estAdmin));
         response.addCookie(cookie);
         
     }
@@ -61,6 +61,14 @@ public class GestionCoockies {
        Cookie[] cookies = null;
        cookies = request.getCookies();
        return cookies;
+    }
+    
+    public static Cookie getCoockie(Cookie[] cookies,String nomCoockie){
+        for (int i = 0; i < cookies.length; i++) {
+            if(cookies[i].getName().equals(nomCoockie))
+                return cookies[i];
+        }
+        return null;
     }
     
     

@@ -12,6 +12,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utils.GestionCoockies;
 
 /**
  *
@@ -39,7 +40,8 @@ public class PageHomeUser extends HttpServlet {
             //String id = ck[0].toString();
             
             
-            String prenom = "Antoine";           
+            String prenom = GestionCoockies.getCoockie(GestionCoockies.getCoockieUser(request),GestionCoockies.PRENOM).getValue();  
+            String nom = GestionCoockies.getCoockie(GestionCoockies.getCoockieUser(request),GestionCoockies.NOM).getValue();           
             int i=7;
             //cookie + récupérations des données BDD
             
@@ -63,7 +65,7 @@ public class PageHomeUser extends HttpServlet {
             out.println("<br/>");
             out.println("<br/>");
             
-            out.println("<p>Bonjour "+ prenom+",");
+            out.println("<p>Bonjour "+ prenom+" "+nom+",");
             out.println("<br/>");
             out.println("<br/>");
             out.println("Vous avez à ce jour emprunté les livres suivants : ");

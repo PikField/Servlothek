@@ -70,6 +70,29 @@ public class ConnectDatabase {
         return null;
     }
     
+    
+    public Utilisateur connnectUtilisateur(String login, String password){
+        ResultSet rs = null;
+        Utilisateur utilisateur = null;
+        try {
+            rs =   this.cnx.createStatement().executeQuery("select ID, NOM, PRENOM, MAIL, ROLE from UTILISATEUR WHERE MAIL='"+login+"' AND MDP='"+password+"'");
+            if(rs.next()){
+               utilisateur = new Utilisateur();
+               utilisateur.setMail(rs.getString("MAIL"));
+               utilisateur.setNom(rs.getString("NOM"));
+               utilisateur.setPrenom(rs.getString("PRENOM"));
+               utilisateur.setRole(rs.getBoolean("ROLE"));
+           }
+           return utilisateur;
+        } catch (SQLException ex) {
+            ex.getMessage();
+            System.exit(-1);
+        }
+        return null;
+    }
+    
+    
+    
     public void quitDB(){
         try {
             this.cnx.close();
