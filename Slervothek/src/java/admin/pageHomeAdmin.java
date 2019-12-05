@@ -2,6 +2,19 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+£££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££
+TO DO QUENTIN GLACHANT : 
+
+- Fonction :    
+Une fonction de récupération des livres suivants les infos (titre, auteur, date, dispo) si toute vide renvois tout, si un élèment prend juste en compte cet element
+Une fonction de suppression de Livre qui renvoi un code d'erreur, 1 si la supression a été faite avec succées, 2 si celui-ci n'existe pas, 3 si l'un des champs n'est pas remplis
+Un fonction de création de Livre qui renvoi le livre 
+
+
+
+
+
+
  */
 package admin;
 
