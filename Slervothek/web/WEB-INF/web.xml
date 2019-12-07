@@ -56,6 +56,38 @@
         <servlet-name>ServletDeconnexion</servlet-name>
         <servlet-class>API.ServletDeconnexion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletTempoCreationLivre</servlet-name>
+        <servlet-class>admin.ServletTempoCreationLivre</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletTempoSupressionLivre</servlet-name>
+        <servlet-class>admin.ServletTempoSupressionLivre</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletTempoRechercheLivre</servlet-name>
+        <servlet-class>admin.ServletTempoRechercheLivre</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletTempoRechercheUser</servlet-name>
+        <servlet-class>admin.ServletTempoRechercheUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletTempoSupressionUser</servlet-name>
+        <servlet-class>admin.ServletTempoSupressionUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletTempoCreationUser</servlet-name>
+        <servlet-class>admin.ServletTempoCreationUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletTempoModificationUser</servlet-name>
+        <servlet-class>admin.ServletTempoModificationUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletTempoModificationLivre</servlet-name>
+        <servlet-class>admin.ServletTempoModificationLivre</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>pageHomeAdmin</servlet-name>
         <url-pattern>/pageHomeAdmin</url-pattern>
@@ -99,6 +131,38 @@
     <servlet-mapping>
         <servlet-name>ServletDeconnexion</servlet-name>
         <url-pattern>/ServletDeconnexion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTempoCreationLivre</servlet-name>
+        <url-pattern>/ServletTempoCreationLivre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTempoSupressionLivre</servlet-name>
+        <url-pattern>/ServletTempoSupressionLivre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTempoRechercheLivre</servlet-name>
+        <url-pattern>/ServletTempoRechercheLivre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTempoRechercheUser</servlet-name>
+        <url-pattern>/ServletTempoRechercheUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTempoSupressionUser</servlet-name>
+        <url-pattern>/ServletTempoSupressionUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTempoCreationUser</servlet-name>
+        <url-pattern>/ServletTempoCreationUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTempoModificationUser</servlet-name>
+        <url-pattern>/ServletTempoModificationUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTempoModificationLivre</servlet-name>
+        <url-pattern>/ServletTempoModificationLivre</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

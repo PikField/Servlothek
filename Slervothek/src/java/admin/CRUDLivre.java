@@ -38,184 +38,207 @@ public class CRUDLivre extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+            
+            String type = request.getParameter("type");
+            String value = request.getParameter("value");
+
+ /* TODO output your page here. You may use following sample code. */
+            out.println(" <!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>CRUD Livre</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<center><h1>Création, Lecture, Modification Suppression de livre</h1></center>");
-             out.println("<br/>");
-            
-            out.println("<h3>Information : "+"</h3>");
-            
-            
-            out.println("<table>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("<br/>");
-           out.println(" <form>");
-            out.println("<table>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("ID du Livre :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='id_livre' name='iddulivre' type='text'/>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Titre du livre :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='titre' name='titredulivre' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Auteur du livre  :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='auteur' name='auteurdulivre' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Date de sortie du livre :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='sortie' name='datedesortie' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Disponibilité :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='dispo' name='disponibilite' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("</table>");
-            
-            
-            out.println("<input type=submit value='Modifier'  />");
-            out.println(" </form>");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<br/>");
-           out.println(" <form>");
-            out.println("<table>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("ID du Livre :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='id_livre' name='iddulivre' type='text'/>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Titre du livre :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='titre' name='titredulivre' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Auteur du livre  :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='auteur' name='auteurdulivre' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Date de sortie du livre :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='sortie' name='datedesortie' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Disponibilité :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='dispo' name='disponibilite' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("</table>");
-            
-            
-            out.println("<input type=submit value='Supprimer'  />");
-            out.println(" </form>");
-                      
-            
-            out.println("</th>");
-            
-             out.println("<th>");
-            out.println("<br/>");
-           out.println(" <form>");
-            out.println("<table>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("ID du Livre :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='id_livre' name='iddulivre' type='text'/>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Titre du livre :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='titre' name='titredulivre' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Auteur du livre  :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='auteur' name='auteurdulivre' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Date de sortie du livre :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='sortie' name='datedesortie' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<th>");
-            out.println("Disponibilité :");
-            out.println("</th>");
-            out.println("<th>");
-            out.println("<input id='dispo' name='disponibilite' type='text'/>");
-            out.println("</th>");
-            out.println("</tr>");
-            out.println("</table>");
-            
-            
-            out.println("<input type=submit value='Création'  />");
-            out.println(" </form>");
-            out.println("</tr>");
-            
-            
-            out.println("</th>");
-            
-            out.println("</tr>");
+            out.println("<title>CRUD Livre</title>");
+            out.println(" </head>");
+            out.println(" <body>");
+            out.println("<input type=button onclick=window.location.href='/Slervothek/pageHomeAdmin'; value='Retour' />");
+            out.println("<input type=button value='Déconnexion' />");
 
-            out.println("</table>");
+            out.println("<center><h1>Création, Lecture, Modification, Suppression de livre</h1></center>");
+            out.println("  <br/>");
+
+            out.println(" <h3>Information : </h3>");
+
+            out.println("<table align='center'>");
+            out.println("<tr>");
+            out.println(" <td>");
+
+            out.println("  <br/>");
+            out.println("  <form action='/Slervothek/ServletTempoCreationLivre' method='POST'>");
+            out.println(" <input type='hidden' id='type' name='type' value='creation'>");
+            out.println("  <table>");
+            out.println("  <tr>");
+            out.println("  <td width='50%'>");
+            out.println("  Titre du livre :");
+            out.println("  </td>");
+            out.println("  <td>");
+            out.println("  <input id='titre' name='titredulivre' type='text' required/>");
+            out.println("  </td>");
+            out.println(" </tr>");
+            out.println(" <tr>");
+            out.println(" <td>");
+            out.println(" Auteur du livre  :");
+            out.println("  </td>");
+            out.println("  <td>");
+            out.println("  <input id='auteur' name='auteurdulivre' type='text' required/>");
+            out.println("  </td>");
+            out.println("  </tr>");
+            out.println("  <tr>");
+            out.println("  <td>");
+            out.println("  Date de sortie du livre :");
+            out.println("  </td>");
+            out.println("  <td>");
+            out.println("  <input id='sortie' name='datedesortie' type='text' required/>");
+            out.println(" </td>");
+            out.println(" </tr>");
+            out.println("  <tr>");
+            out.println("  <td>");
+            out.println("  Disponibilité :");
+            out.println(" </td>");
+            out.println(" <td>");
+            out.println(" <input id='dispo' name='disponibilite' type='checkbox'/>");
+            out.println(" </td>");
+            out.println(" </tr>");
+            out.println(" </table> ");
+
+            out.println("<input type=submit style='float:right' value='Création du livre'  />");
+            out.println("  </form>");
+
+            out.println(" </td>");
+            out.println(" </tr>");
+            out.println("  <tr>");
+            out.println("	<td>");
+            out.println("  <br/>");
+
+            out.println(" <form action='/Slervothek/ServletTempoSupressionLivre' method='POST'>");
+            out.println(" <input type='hidden' id='type' name='type' value='suppression'>");
+            out.println(" <table width='100%'>");
+
+            out.println(" <tr>");
+            out.println(" <td width='50%'>");
+            out.println(" Titre du livre :");
+            out.println(" </td>");
+            out.println("   <td>");
+            out.println("  <input id='titre' name='titredulivre' type='text' required/>");
+            out.println("  </td>");
+            out.println("  </tr>");
+            out.println(" <tr>");
+            out.println(" <td>");
+            out.println(" Auteur du livre  :");
+            out.println(" </td>");
+            out.println(" <td>");
+            out.println(" <input id='auteur' name='auteurdulivre' type='text' required/>");
+            out.println("  </td>");
+            out.println("  </tr>");
+
+            out.println("  </table>");
+
+            out.println("  <input type=submit style='float:right' value='Supprimer'  />");
+            out.println("  </form>");
+
+            out.println(" </td>");
+            out.println(" </tr>");
+            out.println(" <tr>");
+            out.println("<td>");
+
+            out.println(" <br/>");
+            out.println(" <form action='/Slervothek/ServletTempoRechercheLivre' method='POST'>");
+            out.println(" <input type='hidden' id='type' name='type' value='recherche'>");
+            out.println(" <table>");
+            out.println("<tr>");
+            out.println("<td  width='50%'>");
+            out.println(" Titre du livre :");
+            out.println(" </td>");
+            out.println(" <td>");
+            out.println(" <input id='titre' name='titredulivre' type='text'/>");
+            out.println(" </td>");
+            out.println(" </tr>");
+            out.println(" <tr>");
+            out.println(" <td>");
+            out.println(" Auteur du livre  :");
+            out.println(" </td>");
+            out.println("  <td>");
+            out.println(" <input id='auteur' name='auteurdulivre' type='text'/>");
+            out.println(" </td>");
+            out.println(" </tr>");
+            out.println(" <tr>");
+            out.println("<td>");
+            out.println("Date de sortie du livre :");
+            out.println("  </td>");
+            out.println(" <td>");
+            out.println("<input id='sortie' name='datedesortie' type='text'/>");
+            out.println("  </td>");
+            out.println(" </tr>");
+            out.println("  <tr>");
+            out.println("  <td>");
+            out.println("  Disponibilité :");
+            out.println("  </td>");
+            out.println("  <td>");
+            out.println("  <input id='dispo' name='disponibilite' type='checkbox'/>");
+            out.println(" </td>");
+            out.println(" </tr>");
+            out.println("  </table>");
+
+            out.println("  <input type=submit style='float:right' value='Recherche'  />");
+            out.println("   </form>");
+            out.println("  </td>");
+            out.println("   </tr>");
+
+            out.println("<tr>");
+            out.println(" <td>");
+
+            out.println("  <br/>");
+            out.println("  <form action='/Slervothek/ServletTempoModificationLivre' method='POST'>");
+            out.println(" <input type='hidden' id='type' name='type' value='modification'>");
+            out.println("  <table>");
+            out.println("  <tr>");
+            out.println("  <td width='50%'>");
+            out.println("  Titre du livre :");
+            out.println("  </td>");
+            out.println("  <td>");
+            out.println("  <input id='titre' name='titredulivre' type='text' required/>");
+            out.println("  </td>");
+            out.println(" </tr>");
+            out.println(" <tr>");
+            out.println(" <td>");
+            out.println(" Auteur du livre  :");
+            out.println("  </td>");
+            out.println("  <td>");
+            out.println("  <input id='auteur' name='auteurdulivre' type='text' required/>");
+            out.println("  </td>");
+            out.println("  </tr>");
+            out.println("  <tr>");
+            out.println("  <td>");
+            out.println("  Date de sortie du livre :");
+            out.println("  </td>");
+            out.println("  <td>");
+            out.println("  <input id='sortie' name='datedesortie' type='text' required/>");
+            out.println(" </td>");
+            out.println(" </tr>");
+            out.println("  <tr>");
+            out.println("  <td>");
+            out.println("  Disponibilité :");
+            out.println(" </td>");
+            out.println(" <td>");
+            out.println(" <input id='dispo' name='disponibilite' type='checkbox'/>");
+            out.println(" </td>");
+            out.println(" </tr>");
+            out.println(" </table> ");
+
+            out.println("<input type=submit style='float:right' value='Modification du livre'  />");
+            out.println("  </form>");
+
+            out.println(" </td>");
+            out.println(" </tr>");
             
+            out.println(" </table>");
+
             
+            out.println("<h3>Résultat :</h3>");
+            out.println(type);
+            out.println(value);
             
-            out.println("</body>");
-            out.println("</html>");
+            out.println("  </body>");
+            out.println(" </html>");
+
         }
     }
 
