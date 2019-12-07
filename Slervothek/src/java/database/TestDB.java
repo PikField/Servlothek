@@ -13,6 +13,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +23,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.derby.catalog.SystemProcedures;
+import utils.Livre;
 import utils.Utilisateur;
 
 /**
@@ -43,31 +48,10 @@ public class TestDB extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         ConnectDatabase cd = new ConnectDatabase();
         List<Utilisateur> listUtilisateur = cd.getUtilisateurs();
+        List<Livre> listLivres = cd.getLivres(null, null, true);
         
-        
-        
-        
-        
-        
-        /*
-        Connection cnx=null;
-        String nomDuDriver = "org.apache.derby.jdbc.ClientDriver";
-        String urlBD = "jdbc:derby://localhost:1527/servlothek;user=root;password=root;";        
-        try {
-            Class.forName(nomDuDriver);
-        } catch (ClassNotFoundException ex) {
-            log(ex.getMessage());
-            System.exit(-1);
-        }      
-        try {
-            cnx =DriverManager.getConnection(urlBD);            
-        } catch (SQLException ex) {
-            log(ex.getMessage());
-            System.exit(-1);
-        }   
-        
-       */
-   
+        List<Livre> listEmprunte = cd.getLivresEmpruntes();
+ 
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -77,19 +61,18 @@ public class TestDB extends HttpServlet {
             out.println("<title>Servlet TestDB ok</title>");            
             out.println("</head>");
             out.println("<body>");
-            listUtilisateur.forEach((s)->{out.println("     "+s.getNom());});
+           // System.err.println(cd.addUser("mail", "prenom", "nom", "mdp", true));
+           // System.err.println(">>>>>>>>>>>>>>>>>>>>>>>" + cd.deleteUser("mail"));
+           // System.err.println(cd.updateUser("mail", "prenom2", "nom", "mdp", true));
+          // cd.addEmprunt("N.Dailly", "Radio-mobile", "2019-10-31", "2020-02-15", "mail");
+           // System.err.println(">>>>>>>>>>>>>>>>>>>>>>>" +cd.addLivre("N.Dailly", "Radio-mobile", "2015-01-21", true));
+            listUtilisateur.forEach((s)->{out.println("     "+s.getNom()+"</br>");});
+            out.println("</br></br>");
+            listLivres.forEach((s)->{out.println("     "+s.toString()+"</br>");});
+            out.println("</br></br>");
+            listEmprunte.forEach((s)->{out.println("     "+s.toString()+"</br>");});
             out.println("<h1>Servlet TestDB  ok 5 at " + request.getContextPath() + "</h1>");
-            /*try {
-                while(rs.next()){
-                    String nom = rs.getString("NOM");
-                    String prenom = rs.getString("PRENOM");
-                    String mail = rs.getString("MAIL");
-                    boolean role = rs.getBoolean("ROLE");
-                    //out.println("Nom: "+nom+" Prenom: "+prenom+" rôle: "+role + "mail: "+mail);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            
             
             out.println("</body>");
             out.println("</html>");

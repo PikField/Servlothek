@@ -46,7 +46,7 @@ public class ServletConnexion extends HttpServlet {
         
         
         RequestDispatcher rd;
-        Utilisateur user = cd.connnectUtilisateur(login,password);
+        Utilisateur user = cd.getUtilisateur(login,password);
         
         if(user == null){
             rd=request.getRequestDispatcher("index.html");  
