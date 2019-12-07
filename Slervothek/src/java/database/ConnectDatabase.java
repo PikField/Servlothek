@@ -94,6 +94,25 @@ public class ConnectDatabase {
         return null;
     }
     
+    public Utilisateur getUtilisateur(String mail,String mdp){
+        ResultSet rs = null;
+        Utilisateur utilisateur = null;
+        try {
+            rs =   this.cnx.createStatement().executeQuery("select ID, NOM, PRENOM, MAIL, ROLE from UTILISATEUR WHERE MAIL='"+mail+"' AND MDP='"+mdp+"'");
+            if(rs.next()){
+               utilisateur = new Utilisateur();
+               utilisateur.setMail(rs.getString("MAIL"));
+               utilisateur.setNom(rs.getString("NOM"));
+               utilisateur.setPrenom(rs.getString("PRENOM"));
+               utilisateur.setRole(rs.getBoolean("ROLE"));
+           }
+           return utilisateur;
+        } catch (SQLException ex) {
+            ex.getMessage();
+            System.exit(-1);
+        }
+        return null;
+    }
     
     public int addUser(String mail, String prenom, String nom, String mdp, boolean role){
         String req = "insert into UTILISATEUR(NOM, PRENOM, MAIL, MDP) VALUES ('"+nom+"', '"+prenom+"', '"+mail+"', '"+mdp+"')";

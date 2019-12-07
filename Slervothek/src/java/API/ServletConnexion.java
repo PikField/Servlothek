@@ -59,8 +59,7 @@ public class ServletConnexion extends HttpServlet {
                 //rd.forward(request,response);
                 response.sendRedirect("pageHomeAdmin");
             }else{
-                rd=request.getRequestDispatcher("PageHomeUser");  
-                rd.forward(request,response);
+                response.sendRedirect("PageHomeUser");  
             }
         }
     }
