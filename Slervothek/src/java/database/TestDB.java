@@ -73,6 +73,10 @@ public class TestDB extends HttpServlet {
             listEmprunte.forEach((s)->{out.println("     "+s.toString()+"</br>");});
             out.println("<h1>Servlet TestDB  ok 5 at " + request.getContextPath() + "</h1>");
             
+            List<Livre> livresEmprunte = cd.getLivresEmprunteParUtilisateur("jean.dupont@gmail.com");
+            
+            livresEmprunte.forEach((s)->{out.println("     "+s.toString()+"</br>");});
+            
             
             out.println("</body>");
             out.println("</html>");

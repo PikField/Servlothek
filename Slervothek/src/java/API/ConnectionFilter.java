@@ -25,7 +25,7 @@ public class ConnectionFilter implements Filter {
     private HttpServletRequest httpRequest;
  
     private static final String[] loginRequiredURLs = {
-            "/ServletConnexion","/pageHomeAdmin"
+            "/ServletConnexion","/pageHomeAdmin","/PageHomeUser"
     };
  
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

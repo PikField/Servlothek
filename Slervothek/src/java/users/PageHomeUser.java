@@ -5,8 +5,13 @@
  */
 package users;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.List;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -14,7 +19,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
 import utils.GestionCoockies;
+import utils.Livre;
 
 /**
  *
@@ -51,12 +59,14 @@ public class PageHomeUser extends HttpServlet {
             HttpSession session = request.getSession();
             String prenom = session.getAttribute("prenom").toString() ;
             String nom = session.getAttribute("nom").toString();
+            String mail = session.getAttribute("mail").toString();
             
             
             if(session.getAttribute(GestionCoockies.ROLE).equals("true"))
                 response.sendRedirect("index.html");
             
-            int i=7;
+            ConnectDatabase cd = new ConnectDatabase();
+            
             //cookie + récupérations des données BDD
             
             /* TODO output your page here. You may use following sample code. */
@@ -81,7 +91,6 @@ public class PageHomeUser extends HttpServlet {
             out.println("<br/>");
             out.println("<br/>");
                         
-            out.println("<h3>"+prenom+" -- "+nom+"----"+session.getAttribute("role").toString() +"</h3>");
 
             out.println("<p>Bonjour "+ prenom+" "+nom+",");
             out.println("<br/>");
@@ -90,12 +99,20 @@ public class PageHomeUser extends HttpServlet {
             out.println("<br/>");
             out.println("<br/>");
             
-            while(i!=0){
-               out.println("-Titre : <u>"+prenom+"</u>,de l'auteur : <u>"+prenom+"</u>, emprunté le : <u>"+prenom+"</u> et à rendre avant le : <u>"+prenom+"</u>");
-               out.println("<br/>");
-               i--;
+            
+            
+            List<Livre> livresEmprunte = cd.getLivresEmprunteParUtilisateur(mail);
+            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
+            for(int i=0; i< livresEmprunte.size();i++){
+                Date aRendreLe = livresEmprunte.get(i).getSortie();
+                Calendar c = Calendar.getInstance();
+                c.setTime(aRendreLe);
+                c.add(Calendar.DATE, 14);
+                livresEmprunte.get(i).setaRendre(new Date(c.getTimeInMillis()));
+                out.println("-Titre : <u>"+livresEmprunte.get(i).getTitre()+"</u>,de l'auteur : <u>"+livresEmprunte.get(i).getAuteur()+"</u>, emprunté le : <u>"+formater.format(livresEmprunte.get(i).getSortie())+"</u> et à rendre avant le : <u>"+formater.format(livresEmprunte.get(i).getaRendre())+"</u>");
+                out.println("<br/>");
             }
-               
+            
 
             
             out.println("</body>");

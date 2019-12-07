@@ -77,7 +77,7 @@ public class PageModificationUser extends HttpServlet {
             out.println("Votre email de contact :");
             out.println("</th>");
             out.println("<th>");
-            out.println("<input id='Mail' name='email' type='email' value='"+ mail+"' required/>");
+            out.println("<input id='Mail' name='email' type='email' value='"+ mail+"'  disabled=\"disabled\" required/>");
             out.println("</th>");
             out.println("</tr>");
             out.println("<tr>");

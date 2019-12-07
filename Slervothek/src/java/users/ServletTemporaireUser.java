@@ -5,12 +5,14 @@
  */
 package users;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,10 +37,13 @@ public class ServletTemporaireUser extends HttpServlet {
 
             String nom = request.getParameter("name");
             String prenom = request.getParameter("surname");
-            String mail = request.getParameter("email");
             String mdp = request.getParameter("password");
             
+            HttpSession session = request.getSession();
+            String mail = session.getAttribute("mail").toString();
             
+            ConnectDatabase cd = new ConnectDatabase();
+            int rep=cd.updateUser(mail, prenom, nom, mdp, false);
             
             
             //APPEL DE LA FONCTION AFIN DE MODIFIER LES PARAMETRES

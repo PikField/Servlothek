@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jdk.nashorn.internal.objects.NativeArray;
 import utils.GestionCoockies;
+import utils.Livre;
 import utils.Utilisateur;
 
 /**
@@ -94,23 +95,18 @@ public class pageHomeAdmin extends HttpServlet {
             for(int i=0;i<users.size();i++)
                 listNom.add(users.get(i).getNom()+" "+users.get(i).getPrenom());
 
-
+            
+            List<Livre> livresDispo = cd.getLivres(null, null, Boolean.TRUE);
             List<String> livreDisponible = new ArrayList<String>();
-            livreDisponible.add("Rouge et noir");
-            livreDisponible.add("oui-oui et le haricot magique");
-            livreDisponible.add("khjk");
-            livreDisponible.add("iuihiu");
-            livreDisponible.add("mlzpkozi");
+            for(int i=0;i<livresDispo.size();i++)
+                livreDisponible.add(livresDispo.get(i).getTitre()+" de "+livresDispo.get(i).getAuteur());
 
-
+            
+            List<Livre> livresEmprunt = cd.getLivresEmpruntes();
             List<String> livreEmprunte = new ArrayList<String>();
-            livreEmprunte.add("64645");
-            livreEmprunte.add("ljtlkezt");
-            livreEmprunte.add("pm   z");
-            livreEmprunte.add("mù");
-            livreEmprunte.add("^yria");
+            for(int i=0;i<livresEmprunt.size();i++)
+                livreEmprunte.add(livresEmprunt.get(i).getTitre()+" de "+livresEmprunt.get(i).getAuteur());
 
-            int nombreLivreEmprunte = livreEmprunte.size();
 
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -132,7 +128,6 @@ public class pageHomeAdmin extends HttpServlet {
             out.println("<h3>Effectuer un prêt :</h3>");
             
             
-            out.println("<h3>"+prenom+" -- "+nom+"----"+session.getAttribute("role").toString() +"</h3>");
             
          
         
@@ -168,7 +163,7 @@ public class pageHomeAdmin extends HttpServlet {
             out.println("<FORM action='/Slervothek/RetourDeLivre' method='POST'>");
             out.println("<SELECT name='LivreEmprunté' size='1'>");
             
-            for (int i = 0; i < nombreLivreEmprunte; i++) {
+            for (int i = 0; i < livreEmprunte.size(); i++) {
                 out.println("<OPTION>" + livreEmprunte.get(i));
             }
             //out.println("<OPTION>Le rouge et le noir");
