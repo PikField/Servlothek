@@ -5,14 +5,22 @@
  */
 package admin;
 
+import database.ConnectDatabase;
+import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import jdk.nashorn.internal.objects.NativeArray;
+import utils.GestionCoockies;
+import utils.Utilisateur;
 
 /**
  *
@@ -32,13 +40,47 @@ public class pageHomeAdmin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        //Cookie cookies[] = GestionCoockies.getCoockieUser(request);
+        /*
+            if(!Boolean.getBoolean(GestionCoockies.getCoockie(cookies, GestionCoockies.ROLE).getValue())){
+                RequestDispatcher rd;
+                rd=request.getRequestDispatcher("index.html");  
+                rd.include(request,response);
+            }
+        */
+        
+        
+        ////
+        ////
+        //// TODO: Authentification filter pour gérer les retours
+        ////
+        ////
+       
+        
         try (PrintWriter out = response.getWriter()) {
+             
+            HttpSession session = request.getSession();
+            
+            String prenom = session.getAttribute("prenom").toString() ;
+            String nom = session.getAttribute("nom").toString() ;
+            /*
+            for(int i=0;i<cookies.length;i++){
+                if(cookies[i].getName().equals(GestionCoockies.NOM))
+                    nom = cookies[i].getValue();
+                if(cookies[i].getName().equals(GestionCoockies.PRENOM))
+                    prenom = cookies[i].getValue();
+                
+            }
+            */
 
             List<String> listNom = new ArrayList<String>();
-            listNom.add("Martin Michou");
-            listNom.add("Jean Richelieu");
+            
+            ConnectDatabase cd = new ConnectDatabase();
+            List<Utilisateur> users = cd.getUtilisateurs();
+            for(int i=0;i<users.size();i++)
+                listNom.add(users.get(i).getNom()+" "+users.get(i).getPrenom());
 
-            int nombreUtilisateur = listNom.size();
 
             List<String> livreDisponible = new ArrayList<String>();
             livreDisponible.add("Rouge et noir");
@@ -47,7 +89,6 @@ public class pageHomeAdmin extends HttpServlet {
             livreDisponible.add("iuihiu");
             livreDisponible.add("mlzpkozi");
 
-            int nombreLivredispo = livreDisponible.size();
 
             List<String> livreEmprunte = new ArrayList<String>();
             livreEmprunte.add("64645");
@@ -65,7 +106,9 @@ public class pageHomeAdmin extends HttpServlet {
             out.println("<title>Page utilisateur</title>");
             out.println("</head>");
             out.println("<body>");
+            out.println("<form action='/Slervothek/ServletDeconnexion'>");
             out.println("<input type=submit value='Déconnexion' />");
+            out.println("</form>");
 
             out.println("<center><h1>Page de gestion administrateur</h1></center>");
 
@@ -74,11 +117,16 @@ public class pageHomeAdmin extends HttpServlet {
             out.println("<br/>");
             out.println("<br/>");
             out.println("<h3>Effectuer un prêt :</h3>");
-
+            
+            
+            out.println("<h3>"+prenom+" -- "+nom+"----"+session.getAttribute("role").toString() +"</h3>");
+            
+         
+        
             out.println("<FORM action='/Slervothek/EmpruntDeLivre' method='POST'>");
             out.println("<SELECT name='Utilisateur' size='1'>");
 
-            for (int i = 0; i < nombreUtilisateur; i++) {
+            for (int i = 0; i <  listNom.size(); i++) {
                 out.println("<OPTION>" + listNom.get(i));
             }
 
@@ -89,7 +137,7 @@ public class pageHomeAdmin extends HttpServlet {
             out.println("</SELECT>");
 
             out.println("<SELECT name='Livre' size='1'>");
-            for (int i = 0; i < nombreLivredispo; i++) {
+            for (int i = 0; i < livreDisponible.size(); i++) {
                 out.println("<OPTION>" + livreDisponible.get(i));
             }
             //out.println("<OPTION>Le rouge et le noir");

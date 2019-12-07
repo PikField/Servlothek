@@ -48,17 +48,20 @@ public class ServletConnexion extends HttpServlet {
         RequestDispatcher rd;
         Utilisateur user = cd.connnectUtilisateur(login,password);
         
-        if(user == null){
+        if(!(user instanceof Utilisateur)){
             rd=request.getRequestDispatcher("index.html");  
             rd.include(request,response);
-        }else if(user.isRole()){
-            GestionCoockies.createCookieUser(response, user.getNom(),user.getPrenom(),user.getMail(),user.isRole());
-            rd=request.getRequestDispatcher("pageHomeAdmin");  
-            rd.forward(request,response);
-        }else{
-            GestionCoockies.createCookieUser(response, user.getNom(),user.getPrenom(),user.getMail(),user.isRole());
-            rd=request.getRequestDispatcher("PageHomeUser");  
-            rd.forward(request,response);
+        }else{ 
+            response = GestionCoockies.createCookieUser(response, user.getNom(),user.getPrenom(),user.getMail(),user.isRole());
+            GestionCoockies.createSession(request, user.getNom(), user.getPrenom(), user.getMail(), user.isRole());
+            if(user.isRole()){
+                //rd=request.getRequestDispatcher("pageHomeAdmin");  
+                //rd.forward(request,response);
+                response.sendRedirect("pageHomeAdmin");
+            }else{
+                rd=request.getRequestDispatcher("PageHomeUser");  
+                rd.forward(request,response);
+            }
         }
     }
     

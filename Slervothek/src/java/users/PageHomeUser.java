@@ -7,11 +7,13 @@ package users;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import utils.GestionCoockies;
 
 /**
@@ -32,6 +34,7 @@ public class PageHomeUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         try ( PrintWriter out = response.getWriter()) {
             
             //REquest donné cookie.
@@ -40,8 +43,19 @@ public class PageHomeUser extends HttpServlet {
             //String id = ck[0].toString();
             
             
-            String prenom = GestionCoockies.getCoockie(GestionCoockies.getCoockieUser(request),GestionCoockies.PRENOM).getValue();  
-            String nom = GestionCoockies.getCoockie(GestionCoockies.getCoockieUser(request),GestionCoockies.NOM).getValue();           
+            //String prenom = "lol";//GestionCoockies.getCoockie(GestionCoockies.getCoockieUser(request),GestionCoockies.PRENOM).getValue();  
+            //String nom = "lol";//GestionCoockies.getCoockie(GestionCoockies.getCoockieUser(request),GestionCoockies.NOM).getValue();           
+            
+            
+            
+            HttpSession session = request.getSession();
+            String prenom = session.getAttribute("prenom").toString() ;
+            String nom = session.getAttribute("nom").toString();
+            
+            
+            if(session.getAttribute(GestionCoockies.ROLE).equals("true"))
+                response.sendRedirect("index.html");
+            
             int i=7;
             //cookie + récupérations des données BDD
             
@@ -57,25 +71,32 @@ public class PageHomeUser extends HttpServlet {
             
             
             out.println("<body>");
+            out.println("<form action='/Slervothek/ServletDeconnexion'>");
             out.println("<input type=submit value='Déconnexion' />");
+            out.println("</form>");
             out.println("<center><h1>Page de gestion utilisateur</h1></center>");
             out.println("<div align='right'>");
             out.println("<input type=button onclick=window.location.href='/Slervothek/PageModificationUser'; value='Modification du profil' />");
             out.println("</div>");
             out.println("<br/>");
             out.println("<br/>");
-            
+                        
+            out.println("<h3>"+prenom+" -- "+nom+"----"+session.getAttribute("role").toString() +"</h3>");
+
             out.println("<p>Bonjour "+ prenom+" "+nom+",");
             out.println("<br/>");
             out.println("<br/>");
             out.println("Vous avez à ce jour emprunté les livres suivants : ");
             out.println("<br/>");
             out.println("<br/>");
-                       while(i!=0){
+            
+            while(i!=0){
                out.println("-Titre : <u>"+prenom+"</u>,de l'auteur : <u>"+prenom+"</u>, emprunté le : <u>"+prenom+"</u> et à rendre avant le : <u>"+prenom+"</u>");
                out.println("<br/>");
                i--;
-           }
+            }
+               
+
             
             out.println("</body>");
             out.println("</html>");

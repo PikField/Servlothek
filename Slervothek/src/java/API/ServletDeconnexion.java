@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package admin;
+package API;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +12,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import utils.GestionCoockies;
 
 /**
  *
- * @author adminGRIT
+ * @author Matthieu PAPIER
  */
-public class CRUDUtilisateur extends HttpServlet {
+public class ServletDeconnexion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,22 +34,14 @@ public class CRUDUtilisateur extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        GestionCoockies.DetectFakeConnection(request, response);
-
         
+        response = GestionCoockies.supprimerCookies(request, response);
+        GestionCoockies.eraseSession(request);
         
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>CRUD Utilisateur</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<center><h1>Création, Lecture, Modification Suppression d'utilisateur</h1></center>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.sendRedirect("index.html");
+        
+        return;
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

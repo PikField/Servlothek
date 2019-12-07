@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>ConnectionFilter</filter-name>
+        <filter-class>API.ConnectionFilter</filter-class>
+        <init-param>
+            <param-name>mail</param-name>
+            <param-value>mail</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>ConnectionFilter</filter-name>
+        <servlet-name>ServletConnexion</servlet-name>
+    </filter-mapping>
     <servlet>
         <servlet-name>pageHomeAdmin</servlet-name>
         <servlet-class>admin.pageHomeAdmin</servlet-class>
@@ -40,6 +52,10 @@
         <servlet-name>CRUDUtilisateur</servlet-name>
         <servlet-class>admin.CRUDUtilisateur</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletDeconnexion</servlet-name>
+        <servlet-class>API.ServletDeconnexion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>pageHomeAdmin</servlet-name>
         <url-pattern>/pageHomeAdmin</url-pattern>
@@ -54,7 +70,8 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PageModificationUser</servlet-name>
-        <url-pattern>/PageModificationUser</url-pattern></servlet-mapping>
+        <url-pattern>/PageModificationUser</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletTemporaireUser</servlet-name>
         <url-pattern>/ServletTemporaireUser</url-pattern>
@@ -78,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>TestDB</servlet-name>
         <url-pattern>/TestDB</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDeconnexion</servlet-name>
+        <url-pattern>/ServletDeconnexion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

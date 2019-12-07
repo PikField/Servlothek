@@ -7,10 +7,13 @@ package users;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import utils.GestionCoockies;
 
 /**
  *
@@ -30,6 +33,15 @@ public class PageModificationUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        GestionCoockies.DetectFakeConnection(request, response);        
+        
+        HttpSession session = request.getSession();
+        String prenom = session.getAttribute("prenom").toString() ;
+        String nom = session.getAttribute("nom").toString();
+        String mail = session.getAttribute("mail").toString();
+            
+            
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -42,6 +54,7 @@ public class PageModificationUser extends HttpServlet {
             out.println("<br/>");
             out.println("<br/>");
                        
+            
             out.println("<form action='/Slervothek/ServletTemporaireUser' method='POST'>");
             out.println("<table>");
             out.println("<tr>");
@@ -49,14 +62,14 @@ public class PageModificationUser extends HttpServlet {
             out.println("Votre nom :");
             out.println("</th>");
             out.println("<th>");
-            out.println("<input id='Nom' name='name' type='text' required/>");
+            out.println("<input id='Nom' name='name' type='text' value='"+ nom+"' required/>");
             out.println("</tr>");
             out.println("<tr>");
             out.println("<th>");
             out.println("Votre prénom :");
             out.println("</th>");
             out.println("<th>");
-            out.println("<input id='Prénom' name='surname' type='text' required/>");
+            out.println("<input id='Prénom' name='surname' type='text' value='"+ prenom+"' required/>");
             out.println("</th>");
             out.println("</tr>");
             out.println("<tr>");
@@ -64,7 +77,7 @@ public class PageModificationUser extends HttpServlet {
             out.println("Votre email de contact :");
             out.println("</th>");
             out.println("<th>");
-            out.println("<input id='Mail' name='email' type='email' required/>");
+            out.println("<input id='Mail' name='email' type='email' value='"+ mail+"' required/>");
             out.println("</th>");
             out.println("</tr>");
             out.println("<tr>");

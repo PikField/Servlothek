@@ -34,6 +34,11 @@ public class EmpruntDeLivre extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             
+            String url = request.getHeader("referer");
+            if(!url.equals("http://localhost:8080/Slervothek/ServletConnexion"))
+                response.sendRedirect("/index.html");
+            
+            
             String empruntant = request.getParameter("Utilisateur");
             String emprunter = request.getParameter("Livre");
             

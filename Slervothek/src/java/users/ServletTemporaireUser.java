@@ -38,6 +38,9 @@ public class ServletTemporaireUser extends HttpServlet {
             String mail = request.getParameter("email");
             String mdp = request.getParameter("password");
             
+            
+            
+            
             //APPEL DE LA FONCTION AFIN DE MODIFIER LES PARAMETRES
 
             out.println("<!DOCTYPE html>");
