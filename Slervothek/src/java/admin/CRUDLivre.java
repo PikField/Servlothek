@@ -7,12 +7,15 @@ package admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.GestionCoockies;
+import utils.Livre;
 
 /**
  *
@@ -33,8 +36,12 @@ public class CRUDLivre extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        GestionCoockies.DetectFakeConnection(request, response);
+        //GestionCoockies.DetectFakeConnection(request, response);
         
+        
+        List<Livre> livres = new ArrayList<Livre>();
+        if(request.getAttribute("livres")!=null)
+            livres = (List<Livre>) request.getAttribute("livres");
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -88,7 +95,7 @@ public class CRUDLivre extends HttpServlet {
             out.println("  Date de sortie du livre :");
             out.println("  </td>");
             out.println("  <td>");
-            out.println("  <input id='sortie' name='datedesortie' type='text' required/>");
+            out.println("  <input id='sortie' type='date' name='datedesortie' type='text' required/>");
             out.println(" </td>");
             out.println(" </tr>");
             out.println("  <tr>");
@@ -234,9 +241,17 @@ public class CRUDLivre extends HttpServlet {
             out.println(" </table>");
 
             
-            out.println("<h3>Résultat :</h3>");
-            out.println(type);
-            out.println(value);
+            out.println("<h3>Résultat :"+"</h3>");
+            
+            for(int i = 0;i<livres.size();i++){
+                out.println(livres.get(i).getTitre()+ " "+livres.get(i).getAuteur());
+                if(livres.get(i).isDisponible())
+                    out.println(" disponible ");
+                else
+                    out.println(" indisponible ");
+                  out.println("<br/>");
+            
+            }
             
             out.println("  </body>");
             out.println(" </html>");

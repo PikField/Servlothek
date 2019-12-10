@@ -5,6 +5,7 @@
  */
 package admin;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -35,6 +36,9 @@ public class ServletTempoSupressionLivre extends HttpServlet {
             
             String titre = request.getParameter("titredulivre");
             String auteur = request.getParameter("auteurdulivre");
+            
+            ConnectDatabase cd = new ConnectDatabase();
+            cd.deleteLivre(titre, auteur);
 
             
             out.println("<!DOCTYPE html>");

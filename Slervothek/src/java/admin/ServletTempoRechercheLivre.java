@@ -5,12 +5,17 @@
  */
 package admin;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import utils.Livre;
 
 /**
  *
@@ -37,11 +42,28 @@ public class ServletTempoRechercheLivre extends HttpServlet {
             String titre = request.getParameter("titredulivre");
             String auteur = request.getParameter("auteurdulivre");
             String date = request.getParameter("datedesortie");
-            String dispo = request.getParameter("disponibilite");
             String custId = request.getParameter("type");
             
+            ConnectDatabase cd = new ConnectDatabase();
             
-            String creation="jean";
+            
+            Boolean dispo = true;
+            if(request.getParameter("disponibilite") == null)
+                dispo = false;
+            
+            
+            List<Livre> livres = cd.getLivres(titre, auteur, dispo);
+            
+            
+            HttpServletRequest req = request;
+            
+            req.setAttribute("livres",livres);
+            
+            
+            RequestDispatcher rd=request.getRequestDispatcher("CRUDLivre");  
+            rd.include(req,response);
+            
+            
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -49,7 +71,7 @@ public class ServletTempoRechercheLivre extends HttpServlet {
             out.println("<title>temp</title>");
             
 
-            out.println("<meta http-equiv = 'refresh' content = '2; url = /Slervothek/CRUDLivre'/>");
+            //out.println("<meta http-equiv = 'refresh' content = '2; url = /Slervothek/CRUDLivre'/>");
             
             
             out.println("</head>");
@@ -57,16 +79,21 @@ public class ServletTempoRechercheLivre extends HttpServlet {
             
             out.println("  <form action='/Slervothek/CRUDLivre' method='POST'>");
             out.println(" <input type='hidden' id='type' name='type' value='Recherche'>");
-            out.println(" <input type='hidden' id='value' name='value' value="+creation+">");
-
+            out.println(" <input type='hidden' id='type' name='livres' value='"+livres+"'>");
+            //out.println(" <input type='hidden' id='value' name='value' value="+creation+">");
+            
+            out.println("<button type='submit' text='retour' >");
 
             out.println("  </form>");
             
-            
             out.println("test :");
-            out.println(custId);
+            out.println(custId+" -- "+request.getParameter("disponibilite")+" --- "+livres.size());
+            for(int i=0;i<livres.size();i++)
+                out.println(livres.get(i).getTitre()+" - "+livres.get(i).getAuteur()+" </BR>");
+            
             out.println("</body>");
             out.println("</html>");
+            
         }
     }
 

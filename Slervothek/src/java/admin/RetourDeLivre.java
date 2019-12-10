@@ -5,6 +5,7 @@
  */
 package admin;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,10 +34,11 @@ public class RetourDeLivre extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             
-            String retour = request.getParameter("LivreEmprunté");
+            String titreLivre = request.getParameter("LivreEmprunte").split(":")[0];
+            String auteurLivre = request.getParameter("LivreEmprunte").split(":")[1];
             
-            
-            
+            ConnectDatabase cd = new ConnectDatabase();
+            cd.deleteEmprunt(titreLivre, auteurLivre, "%");
             
             
             /* TODO output your page here. You may use following sample code. */
@@ -47,7 +49,7 @@ public class RetourDeLivre extends HttpServlet {
             out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/pageHomeAdmin' />");
             out.println("</head>");
             out.println("<body>");
-            out.println("<p>Hello HTML5!</p>");
+            out.println("<p>"+titreLivre+" -- "+auteurLivre+"</p>");
             out.println("</body>");
             out.println("</html>");
         }

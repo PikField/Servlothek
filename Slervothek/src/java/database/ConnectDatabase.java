@@ -364,7 +364,7 @@ public class ConnectDatabase {
         }
     }
     public int deleteEmprunt(String titre, String auteur, String mail){
-        String req = "delete from EMPRUNT WHERE LIVRE = (SELECT ID from LIVRE where AUTEUR like '"+auteur+"' AND TITRE like '"+titre+"') AND UTILISATEUR = (select ID from UTILISATEUR where MAIL LIKE '"+mail+"')";
+        String req = "delete from EMPRUNT WHERE LIVRE = (SELECT ID from LIVRE where AUTEUR like '"+auteur+"' AND TITRE like '"+titre+"') ";//"AND UTILISATEUR = (select ID from UTILISATEUR where MAIL LIKE '"+mail+"')";
         ResultSet rs = null; 
         try {
             Statement st = this.cnx.createStatement();

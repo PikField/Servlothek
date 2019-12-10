@@ -5,6 +5,7 @@
  */
 package admin;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -36,10 +37,16 @@ public class ServletTempoCreationLivre extends HttpServlet {
             String titre = request.getParameter("titredulivre");
             String auteur = request.getParameter("auteurdulivre");
             String date = request.getParameter("datedesortie");
-            String dispo = request.getParameter("disponibilite");
+            //String dispo = request.getParameter("disponibilite");
             
             
             
+            ConnectDatabase cd = new ConnectDatabase();
+            boolean dispo = true;
+            if(!request.getParameter("disponibilite").equals("on"))
+                dispo = false;
+            
+            cd.addLivre(auteur, titre, date, dispo);
             
             
             out.println("<!DOCTYPE html>");
@@ -49,7 +56,7 @@ public class ServletTempoCreationLivre extends HttpServlet {
             out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/CRUDLivre' />");
             out.println("</head>");
             out.println("<body>");
-            out.println("<p>Hello HTML5!</p>");
+            out.println("<p>"+date+"---"+dispo+"</p>");
             out.println("</body>");
             out.println("</html>");
         }

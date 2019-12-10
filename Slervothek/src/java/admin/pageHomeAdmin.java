@@ -135,7 +135,7 @@ public class pageHomeAdmin extends HttpServlet {
             out.println("<SELECT name='Utilisateur' size='1'>");
 
             for (int i = 0; i <  listNom.size(); i++) {
-                out.println("<OPTION>" + listNom.get(i));
+                out.println("<OPTION value='"+users.get(i).getMail()+"'>" + listNom.get(i));
             }
 
             //out.println("<OPTION>Matthieu Papier");
@@ -146,7 +146,7 @@ public class pageHomeAdmin extends HttpServlet {
 
             out.println("<SELECT name='Livre' size='1'>");
             for (int i = 0; i < livreDisponible.size(); i++) {
-                out.println("<OPTION>" + livreDisponible.get(i));
+                out.println("<OPTION value='"+livresDispo.get(i).getAuteur()+":"+livresDispo.get(i).getTitre()+"'>" + livreDisponible.get(i));
             }
             //out.println("<OPTION>Le rouge et le noir");
             //out.println("<OPTION>Antigone");
@@ -161,10 +161,10 @@ public class pageHomeAdmin extends HttpServlet {
             out.println("<h3>Indiquer un retour :</h3>");
 
             out.println("<FORM action='/Slervothek/RetourDeLivre' method='POST'>");
-            out.println("<SELECT name='LivreEmprunté' size='1'>");
+            out.println("<SELECT name='LivreEmprunte' size='1'>");
             
             for (int i = 0; i < livreEmprunte.size(); i++) {
-                out.println("<OPTION>" + livreEmprunte.get(i));
+                out.println("<OPTION value='"+livresEmprunt.get(i).getAuteur()+":"+livresEmprunt.get(i).getTitre()+"'>" + livreEmprunte.get(i));
             }
             //out.println("<OPTION>Le rouge et le noir");
             //out.println("<OPTION>Antigone");

@@ -5,12 +5,18 @@
  */
 package admin;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.Calendar;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import utils.GestionCoockies;
 
 /**
  *
@@ -33,17 +39,23 @@ public class EmpruntDeLivre extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            
-            String url = request.getHeader("referer");
-            if(!url.equals("http://localhost:8080/Slervothek/ServletConnexion"))
-                response.sendRedirect("/index.html");
+            //GestionCoockies.DetectFakeConnection(request, response);
             
             
             String empruntant = request.getParameter("Utilisateur");
-            String emprunter = request.getParameter("Livre");
+            String auteurLivre = request.getParameter("Livre").split(":")[0];
+            String titreLivre = request.getParameter("Livre").split(":")[1];
+            
+            String date = "2019-12-10";
+            String date2 = "2019-12-24";
+
             
             
+            ConnectDatabase cd = new ConnectDatabase();
+            cd.addEmprunt(auteurLivre, titreLivre, date, date2, empruntant);
             
+            
+         
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -53,6 +65,7 @@ public class EmpruntDeLivre extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<p>Hello HTML5!</p>");
+            out.println("<p>"+empruntant+" -- "+titreLivre+" -- "+auteurLivre+"---"+date+" -- "+date2+"</p>");
             out.println("</body>");
             out.println("</html>");
         }

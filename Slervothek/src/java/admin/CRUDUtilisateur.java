@@ -7,6 +7,7 @@ package admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.GestionCoockies;
 
+import utils.Utilisateur;
 /**
  *
  * @author adminGRIT
@@ -35,13 +37,19 @@ public class CRUDUtilisateur extends HttpServlet {
         
         GestionCoockies.DetectFakeConnection(request, response);
 
+        String lop="epro";
+        List<Utilisateur> users = null;
         
+        if(request.getParameterMap().containsKey("nomUser"))
+            users = (List<Utilisateur>) request.getAttribute("users");
+
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            String lop="epro";
-             out.println(" <!DOCTYPE html>");
+            
+            
+            out.println(" <!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>CRUD Livre</title>");
@@ -243,14 +251,16 @@ public class CRUDUtilisateur extends HttpServlet {
             
             
             out.println(" </table>");
-            out.println("<h3>Résultat :</h3>");
-            int j=7;
-            for(int i = 0;i<j;i++){
+            out.println("<h3>Résultat : </h3>");
             
-                out.println(lop);
+            
+            
+            for(int i = 0;i<users.size();i++){
+            
+                out.println(users.get(i).getNom()+ " "+users.get(i).getPrenom());
                   out.println("<br/>");
             
-        }
+            }
             
             
             out.println("  </body>");

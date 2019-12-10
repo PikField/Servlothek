@@ -5,6 +5,7 @@
  */
 package admin;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,11 +33,18 @@ public class ServletTempoCreationUser extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            String nom = request.getParameter("name");
-            String prenom = request.getParameter("surname");
-            String mail = request.getParameter("email");
+            String nom = request.getParameter("nomuser");
+            String prenom = request.getParameter("prenomuser");
+            String mail = request.getParameter("mailuser");
             String mdp = request.getParameter("mdpuser");
-            String role = request.getParameter("roleadmin");
+             
+           
+            ConnectDatabase cd = new ConnectDatabase();
+            boolean role = false;
+            if(request.getParameter("roleadmin") != null)
+                role = true;
+            
+            cd.addUser(mail, prenom, nom, mdp, role);
             
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -46,7 +54,7 @@ public class ServletTempoCreationUser extends HttpServlet {
             out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/CRUDUtilisateur' />");
             out.println("</head>");
             out.println("<body>");
-            out.println("<p>Hello HTML5!</p>");
+            out.println("<p>"+mail+" -- "+prenom+" -- "+nom+"--"+role+"</p>");
             out.println("</body>");
             out.println("</html>");
         }
