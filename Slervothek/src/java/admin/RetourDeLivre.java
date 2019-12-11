@@ -8,6 +8,7 @@ package admin;
 import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +39,11 @@ public class RetourDeLivre extends HttpServlet {
             String auteurLivre = request.getParameter("LivreEmprunte").split(":")[1];
             
             ConnectDatabase cd = new ConnectDatabase();
-            cd.deleteEmprunt(titreLivre, auteurLivre, "%");
+            cd.deleteEmprunt(titreLivre, auteurLivre);
             
+            HttpServletRequest req = request;
+            RequestDispatcher rd=request.getRequestDispatcher("pageHomeAdmin");  
+            rd.include(req,response);
             
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");

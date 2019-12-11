@@ -5,12 +5,16 @@
  */
 package admin;
 
+import database.ConnectDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utils.Livre;
 
 /**
  *
@@ -30,6 +34,27 @@ public class ServletTempoModificationUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        
+        String nomuser = request.getParameter("nomuser");
+        String prenomuser = request.getParameter("prenomuser");
+        String mailuser = request.getParameter("mailuser");
+        String mdpuser = request.getParameter("mdpuser");
+
+        ConnectDatabase cd = new ConnectDatabase();
+
+
+        Boolean dispo = true;
+        if(request.getParameter("roleadmin") == null)
+            dispo = false;
+
+
+        cd.updateUser(mailuser, prenomuser, nomuser, mdpuser, true);
+        
+        
+        RequestDispatcher rd=request.getRequestDispatcher("CRUDUtilisateur");  
+        rd.include(request,response);
+            
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -38,7 +63,7 @@ public class ServletTempoModificationUser extends HttpServlet {
             out.println("<title>temp</title>");
             
 
-            out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/CRUDUtilisateur'/>");
+            //out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/CRUDUtilisateur'/>");
             
             
             out.println("</head>");

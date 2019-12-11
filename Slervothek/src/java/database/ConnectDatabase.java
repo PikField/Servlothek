@@ -73,6 +73,63 @@ public class ConnectDatabase {
         return null;
     }
     
+    public List<Utilisateur> getUtilisateurs(String nom , String prenom, String mail , Boolean estAdmin ){
+        ResultSet rs = null;
+        String filtreN = "", filtreP ="", filtreM = "", filtreA ="";
+        List<Utilisateur> listusers = new ArrayList<>();
+        String filtre = "";
+        List<String> filtres = new ArrayList<>();
+        
+        if(nom != "" && nom !=null){
+            filtreN += " NOM like '%"+nom+"%' ";
+            filtres.add(filtreN);
+        }
+        if(prenom!= "" && prenom != null ){
+            filtreP += " PRENOM LIKE '%"+prenom+"%' ";
+            filtres.add(filtreP);
+        }
+        if(prenom!= "" && prenom != null ){
+            
+            filtreM += " MAIL LIKE '%"+mail+"%' ";
+            filtres.add(filtreM);
+        }
+        if( estAdmin != null){
+            filtreA +=" ROLE = "+estAdmin+" ";
+            filtres.add(filtreA);
+        }
+        
+        try {
+            listusers =new ArrayList<>();
+            for(int i=0;i<filtres.size();i++){
+                if(filtre == "")
+                    filtre = " WHERE "+filtres.get(i);
+                else
+                    filtre += " AND "+filtres.get(i);
+            }
+            
+            String req = "select NOM, PRENOM, MAIL, ROLE from UTILISATEUR ";
+            req += filtre;
+           
+            rs =   this.cnx.createStatement().executeQuery(req);
+            
+           while(rs.next()){
+               
+               Utilisateur u = new Utilisateur();
+               u.setMail(rs.getString("MAIL"));
+               u.setNom(rs.getString("NOM"));
+               u.setPrenom(rs.getString("PRENOM"));
+               u.setRole(rs.getBoolean("ROLE"));
+               listusers.add(u);
+           }
+           return listusers;
+        } catch (SQLException ex) {
+            ex.getMessage();
+            System.exit(-1);
+        }
+        return null;
+    }
+    
+    
     
     public Utilisateur getUtilisateur(String mail){
         ResultSet rs = null;
@@ -265,7 +322,7 @@ public class ConnectDatabase {
         List<Livre> listLivres = null;
         try {
             listLivres =new ArrayList<>();
-            rs =   this.cnx.createStatement().executeQuery( "SELECT L.TITRE, L.AUTEUR, L.SORTIE, U.NOM, U.PRENOM, U.MAIL, U.ROLE FROM LIVRE as L INNER JOIN EMPRUNT ON L.ID = EMPRUNT.LIVRE, UTILISATEUR as U INNER JOIN EMPRUNT ON U.ID = EMPRUNT.UTILISATEUR");
+            rs =   this.cnx.createStatement().executeQuery( "SELECT L.TITRE, L.AUTEUR, L.SORTIE, U.NOM, U.PRENOM, U.MAIL, U.ROLE FROM LIVRE as L, EMPRUNT as E, UTILISATEUR as U WHERE E.LIVRE = L.ID AND E.UTILISATEUR = U.ID");
            while(rs.next()){
                Livre l = new Livre();
                l.setAuteur(rs.getString("AUTEUR"));
@@ -279,8 +336,8 @@ public class ConnectDatabase {
                u.setRole(rs.getBoolean("ROLE"));
                l.setUtilisateur(u);
                listLivres.add(l);
-        }
-           return listLivres;
+            }
+            return listLivres;
         } catch (SQLException ex) {
             ex.getMessage();
             System.exit(-1);
@@ -364,11 +421,25 @@ public class ConnectDatabase {
         }
     }
     public int deleteEmprunt(String titre, String auteur, String mail){
-        String req = "delete from EMPRUNT WHERE LIVRE = (SELECT ID from LIVRE where AUTEUR like '"+auteur+"' AND TITRE like '"+titre+"') ";//"AND UTILISATEUR = (select ID from UTILISATEUR where MAIL LIKE '"+mail+"')";
+        String req = "delete from EMPRUNT WHERE LIVRE = (SELECT ID from LIVRE where AUTEUR like '"+auteur+"' AND TITRE like '"+titre+"') AND UTILISATEUR = (select ID from UTILISATEUR where MAIL LIKE '"+mail+"')";
         ResultSet rs = null; 
         try {
             Statement st = this.cnx.createStatement();
             st.executeUpdate(req);
+             updateDispoLivre(titre, auteur, true);
+            return 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+     public int deleteEmprunt(String titre, String auteur){
+        String req = "delete from EMPRUNT WHERE LIVRE = (SELECT ID from LIVRE where AUTEUR like '"+auteur+"' AND TITRE like '"+titre+"') ";
+        ResultSet rs = null; 
+        try {
+            Statement st = this.cnx.createStatement();
+            st.executeUpdate(req);
+             updateDispoLivre(titre, auteur, true);
             return 1;
         } catch (SQLException ex) {
             Logger.getLogger(ConnectDatabase.class.getName()).log(Level.SEVERE, null, ex);

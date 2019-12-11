@@ -22,7 +22,12 @@ import database.ConnectDatabase;
 import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,15 +60,6 @@ public class pageHomeAdmin extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //Cookie cookies[] = GestionCoockies.getCoockieUser(request);
-        /*
-            if(!Boolean.getBoolean(GestionCoockies.getCoockie(cookies, GestionCoockies.ROLE).getValue())){
-                RequestDispatcher rd;
-                rd=request.getRequestDispatcher("index.html");  
-                rd.include(request,response);
-            }
-        */
-        
         
         ////
         ////
@@ -78,20 +74,12 @@ public class pageHomeAdmin extends HttpServlet {
             
             String prenom = session.getAttribute("prenom").toString() ;
             String nom = session.getAttribute("nom").toString() ;
-            /*
-            for(int i=0;i<cookies.length;i++){
-                if(cookies[i].getName().equals(GestionCoockies.NOM))
-                    nom = cookies[i].getValue();
-                if(cookies[i].getName().equals(GestionCoockies.PRENOM))
-                    prenom = cookies[i].getValue();
-                
-            }
-            */
+            
 
             List<String> listNom = new ArrayList<String>();
             
             ConnectDatabase cd = new ConnectDatabase();
-            List<Utilisateur> users = cd.getUtilisateurs();
+            List<Utilisateur> users = cd.getUtilisateurs("","","",false);
             for(int i=0;i<users.size();i++)
                 listNom.add(users.get(i).getNom()+" "+users.get(i).getPrenom());
 
@@ -103,9 +91,14 @@ public class pageHomeAdmin extends HttpServlet {
 
             
             List<Livre> livresEmprunt = cd.getLivresEmpruntes();
-            List<String> livreEmprunte = new ArrayList<String>();
-            for(int i=0;i<livresEmprunt.size();i++)
-                livreEmprunte.add(livresEmprunt.get(i).getTitre()+" de "+livresEmprunt.get(i).getAuteur());
+            
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date1 = sdf.format(new Date());
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date()); // Now use today date.
+            c.add(Calendar.DATE, 14); // Adding 5 days
+            String date2 = sdf.format(c.getTime());
 
 
             /* TODO output your page here. You may use following sample code. */
@@ -148,28 +141,23 @@ public class pageHomeAdmin extends HttpServlet {
             for (int i = 0; i < livreDisponible.size(); i++) {
                 out.println("<OPTION value='"+livresDispo.get(i).getAuteur()+":"+livresDispo.get(i).getTitre()+"'>" + livreDisponible.get(i));
             }
-            //out.println("<OPTION>Le rouge et le noir");
-            //out.println("<OPTION>Antigone");
-            //out.println("<OPTION>Le malade imaginaire");
-            //out.println("<OPTION>Oui-oui et les amis imaginaires");
             out.println("</SELECT>");
+            out.println("  <input id='sortie' type='date' name='datedebut' type='text' value='"+date1+"' required/>");
+            out.println("  <input id='sortie' type='date' name='datefin' type='text' value='"+date2+"'required/>");
+
 
             out.println("<input type=submit value='Déclarer un emprunt' />");
 
             out.println("</FORM>");
 
-            out.println("<h3>Indiquer un retour :</h3>");
+            out.println("<h3>Indiquer un retour :"+livresEmprunt.size()+"</h3>");
 
             out.println("<FORM action='/Slervothek/RetourDeLivre' method='POST'>");
             out.println("<SELECT name='LivreEmprunte' size='1'>");
             
-            for (int i = 0; i < livreEmprunte.size(); i++) {
-                out.println("<OPTION value='"+livresEmprunt.get(i).getAuteur()+":"+livresEmprunt.get(i).getTitre()+"'>" + livreEmprunte.get(i));
+            for (int i = 0; i < livresEmprunt.size(); i++) {
+                out.println("<OPTION value='"+livresEmprunt.get(i).getTitre()+":"+livresEmprunt.get(i).getAuteur()+"'> " + livresEmprunt.get(i).getTitre());
             }
-            //out.println("<OPTION>Le rouge et le noir");
-            //out.println("<OPTION>Antigone");
-            //out.println("<OPTION>Le malade imaginaire");
-            //out.println("<OPTION>Oui-oui et les amis imaginaires");
             out.println("</SELECT>");
 
             out.println("<input type=submit value='Déclarer un Retour' />");
