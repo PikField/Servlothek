@@ -38,7 +38,7 @@ public class RetourDeLivre extends HttpServlet {
             String auteurLivre = request.getParameter("LivreEmprunte").split(":")[1];
             
             ConnectDatabase cd = new ConnectDatabase();
-            cd.deleteEmprunt(titreLivre, auteurLivre, "%");
+            cd.deleteEmprunt(titreLivre, auteurLivre);
             
             
             /* TODO output your page here. You may use following sample code. */
@@ -46,7 +46,7 @@ public class RetourDeLivre extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>HTML Meta Tag</title>");
-            out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/pageHomeAdmin' />");
+            //out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/pageHomeAdmin' />");
             out.println("</head>");
             out.println("<body>");
             out.println("<p>"+titreLivre+" -- "+auteurLivre+"</p>");

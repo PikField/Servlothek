@@ -7,6 +7,7 @@ package admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,10 +38,9 @@ public class CRUDUtilisateur extends HttpServlet {
         
         GestionCoockies.DetectFakeConnection(request, response);
 
-        String lop="epro";
-        List<Utilisateur> users = null;
+        List<Utilisateur> users = new ArrayList<>();
         
-        if(request.getParameterMap().containsKey("nomUser"))
+        if(request.getAttribute("users") != null)
             users = (List<Utilisateur>) request.getAttribute("users");
 
         
@@ -115,7 +115,7 @@ public class CRUDUtilisateur extends HttpServlet {
             out.println(" </tr>");
             out.println(" </table> ");
 
-            out.println("<input type=submit style='float:right' value='Création du livre'  />");
+            out.println("<input type=submit style='float:right' value='Création de l\'utilisateur  />");
             out.println("  </form>");
 
             out.println(" </td>");

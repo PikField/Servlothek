@@ -46,8 +46,8 @@ public class EmpruntDeLivre extends HttpServlet {
             String auteurLivre = request.getParameter("Livre").split(":")[0];
             String titreLivre = request.getParameter("Livre").split(":")[1];
             
-            String date = "2019-12-10";
-            String date2 = "2019-12-24";
+            String date = request.getParameter("datedebut");
+            String date2 = request.getParameter("datefin");
 
             
             

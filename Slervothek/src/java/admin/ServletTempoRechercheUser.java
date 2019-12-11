@@ -7,10 +7,15 @@ package admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import utils.Utilisateur;
+import database.ConnectDatabase;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
@@ -33,22 +38,24 @@ public class ServletTempoRechercheUser extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            String nom = request.getParameter("name");
-            String prenom = request.getParameter("surname");
-            String mail = request.getParameter("email");
-            String role = request.getParameter("roleadmin");
+            String nom = request.getParameter("nomuser");
+            String prenom = request.getParameter("prenomuser");
+            String mail = request.getParameter("mailuser");
+            boolean role = false;
             
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>HTML Meta Tag</title>");
-
-            out.println("<meta http-equiv = 'refresh' content = '2; url = /Slervothek/CRUDUtilisateur' />");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<p>Hello HTML5!</p>");
-            out.println("</body>");
-            out.println("</html>");
+            if(request.getParameter("roleadmin") != null)
+                role = true;
+                
+            
+            ConnectDatabase cd = new ConnectDatabase();
+            List<Utilisateur> users = cd.getUtilisateurs(nom,prenom,mail,role);
+            
+            HttpServletRequest req = request;
+            req.setAttribute("users", users);
+            RequestDispatcher rd=request.getRequestDispatcher("CRUDUtilisateur");  
+            rd.include(req,response);
+            
+            
         }
     }
 

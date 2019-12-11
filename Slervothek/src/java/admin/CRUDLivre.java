@@ -54,6 +54,7 @@ public class CRUDLivre extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>CRUD Livre</title>");
+            
             out.println(" </head>");
             out.println(" <body>");
             out.println("<input type=button onclick=window.location.href='/Slervothek/pageHomeAdmin'; value='Retour' />");
@@ -173,7 +174,7 @@ public class CRUDLivre extends HttpServlet {
             out.println("Date de sortie du livre :");
             out.println("  </td>");
             out.println(" <td>");
-            out.println("<input id='sortie' name='datedesortie' type='text'/>");
+            out.println("<input id='sortie' type='date'  name='datedesortie' type='text'/>");
             out.println("  </td>");
             out.println(" </tr>");
             out.println("  <tr>");
@@ -193,7 +194,7 @@ public class CRUDLivre extends HttpServlet {
 
             out.println("<tr>");
             out.println(" <td>");
-
+/*
             out.println("  <br/>");
             out.println("  <form action='/Slervothek/ServletTempoModificationLivre' method='POST'>");
             out.println(" <input type='hidden' id='type' name='type' value='modification'>");
@@ -219,7 +220,7 @@ public class CRUDLivre extends HttpServlet {
             out.println("  Date de sortie du livre :");
             out.println("  </td>");
             out.println("  <td>");
-            out.println("  <input id='sortie' name='datedesortie' type='text' required/>");
+            out.println("  <input id='sortie' type='date'  name='datedesortie' type='text' required/>");
             out.println(" </td>");
             out.println(" </tr>");
             out.println("  <tr>");
@@ -234,7 +235,7 @@ public class CRUDLivre extends HttpServlet {
 
             out.println("<input type=submit style='float:right' value='Modification du livre'  />");
             out.println("  </form>");
-
+*/
             out.println(" </td>");
             out.println(" </tr>");
             
