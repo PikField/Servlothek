@@ -50,7 +50,7 @@ public class RetourDeLivre extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>HTML Meta Tag</title>");
-            out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/pageHomeAdmin' />");
+            //out.println("<meta http-equiv = 'refresh' content = '0; url = /Slervothek/pageHomeAdmin' />");
             out.println("</head>");
             out.println("<body>");
             out.println("<p>"+titreLivre+" -- "+auteurLivre+"</p>");
