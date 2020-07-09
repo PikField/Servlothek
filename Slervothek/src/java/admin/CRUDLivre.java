@@ -67,9 +67,9 @@ public class CRUDLivre extends HttpServlet {
 
             out.println(" <h3>Information : </h3>");
 
-            out.println("<table align='center'>");
+            out.println("<table align='center' style='width:500px'>");
             out.println("<tr>");
-            out.println(" <td>");
+            out.println(" <td style='padding:10px; border:dotted'>");
 
             out.println("  <br/>");
             out.println("  <form action='/Slervothek/ServletTempoCreationLivre' method='POST'>");
@@ -111,25 +111,31 @@ public class CRUDLivre extends HttpServlet {
 
             out.println("<input type=submit style='float:right' value='Création du livre'  />");
             out.println("  </form>");
+            
+            
+            out.println("  </td>");
+            out.println("   </tr>");
+            out.println("<tr>");
+            out.println(" <td>");
 
             out.println(" </td>");
             out.println(" </tr>");
             out.println("  <tr>");
-            out.println("	<td>");
+            out.println("	<td style='padding:10px; border:dotted'>");
             out.println("  <br/>");
 
             out.println(" <form action='/Slervothek/ServletTempoSupressionLivre' method='POST'>");
             out.println(" <input type='hidden' id='type' name='type' value='suppression'>");
-            out.println(" <table width='100%'>");
+            out.println(" <table >");
 
             out.println(" <tr>");
             out.println(" <td width='50%'>");
             out.println(" Titre du livre :");
             out.println(" </td>");
-            out.println("   <td>");
-            out.println("  <input id='titre' name='titredulivre' type='text' required/>");
-            out.println("  </td>");
-            out.println("  </tr>");
+            out.println(" <td>");
+            out.println("<input id='titre' name='titredulivre' type='text' required/>");
+            out.println("</td>");
+            out.println("</tr>");
             out.println(" <tr>");
             out.println(" <td>");
             out.println(" Auteur du livre  :");
@@ -144,10 +150,16 @@ public class CRUDLivre extends HttpServlet {
             out.println("  <input type=submit style='float:right' value='Supprimer'  />");
             out.println("  </form>");
 
+            
+            out.println("  </td>");
+            out.println("   </tr>");
+            out.println("<tr>");
+            out.println(" <td>");
+            
             out.println(" </td>");
             out.println(" </tr>");
             out.println(" <tr>");
-            out.println("<td>");
+            out.println("<td style='padding:10px; border:dotted'>");
 
             out.println(" <br/>");
             out.println(" <form action='/Slervothek/ServletTempoRechercheLivre' method='POST'>");

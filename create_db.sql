@@ -42,3 +42,6 @@ insert into UTILISATEUR(NOM, PRENOM, MAIL, MDP) VALUES ('jean', 'dupont', 'jean.
 insert into LIVRE(TITRE, AUTEUR, SORTIE, DISPONIBLE) VALUES ('Electromagnetisme', 'P. Dassonvalle', current_date, true), ('La thermodynamique pour les nulls', 'L. Barroux', current_date, false)
 insert into EMPRUNT(LIVRE, AUTEUR) VALUES ((select ID from LIVRE where TITRE LIKE 'Electromagnetisme' AND AUTEUR LIKE 'P. Dassonvalle'), 
 (select ID from UTILISATEUR where MAIL  like 'jean.dupont@gmail.com'))
+
+
+select L.*, U.* from  LIVRE as L INNER JOIN EMPRUNT on EMPRUNT.LIVRE = L.ID, UTILISATEUR as U INNER JOIN EMPRUNT on EMPRUNT.UTILISATEUR = U.ID, EMPRUNT as E where L.DISPONIBLE = false and E.UTILISATEUR  = U.ID and E.LIVRE = 

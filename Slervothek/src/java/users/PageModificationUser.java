@@ -50,6 +50,12 @@ public class PageModificationUser extends HttpServlet {
             out.println("<title>Modification utilisateur</title>");            
             out.println("</head>");
             out.println("<body>");
+            
+            out.println("<input type=button onclick=window.location.href='/Slervothek/PageHomeUser'; value='Retour' />");
+            out.println("<form action='/Slervothek/ServletDeconnexion'>");
+            out.println("<input type=submit value='Déconnexion' />");
+            out.println("</form>");
+            
             out.println("<center><h1>Page de Modification utilisateur</h1></center>");
             out.println("<br/>");
             out.println("<br/>");

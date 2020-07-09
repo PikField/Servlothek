@@ -36,7 +36,7 @@ public class CRUDUtilisateur extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        GestionCoockies.DetectFakeConnection(request, response);
+        //GestionCoockies.DetectFakeConnection(request, response);
 
         List<Utilisateur> users = new ArrayList<>();
         
@@ -65,9 +65,9 @@ public class CRUDUtilisateur extends HttpServlet {
 
             out.println(" <h3>Information : </h3>");
 
-            out.println("<table align='center'>");
+            out.println("<table align='center' style='width:500px'>");
             out.println("<tr>");
-            out.println(" <td>");
+            out.println(" <td style='padding:10px; border:dotted'>");
 
             out.println("  <br/>");
             out.println("  <form action='/Slervothek/ServletTempoCreationUser' method='POST'>");
@@ -115,18 +115,23 @@ public class CRUDUtilisateur extends HttpServlet {
             out.println(" </tr>");
             out.println(" </table> ");
 
-            out.println("<input type=submit style='float:right' value='Création de l\'utilisateur  />");
+            out.println("<input type=submit style='float:right' value='Création utilisateur'  />");
             out.println("  </form>");
+            
+            out.println("  </td>");
+            out.println("   </tr>");
+            out.println("<tr>");
+            out.println(" <td>");
 
             out.println(" </td>");
             out.println(" </tr>");
             out.println("  <tr>");
-            out.println("	<td>");
+            out.println("	<td style='padding:10px; border:dotted'>");
             out.println("  <br/>");
 
             out.println(" <form action='/Slervothek/ServletTempoSupressionUser' method='POST'>");
             out.println(" <input type='hidden' id='type' name='type' value='suppression'>");
-            out.println(" <table width='100%'>");
+            out.println(" <table>");
 
             out.println(" <tr>");
             out.println(" <td width='50%'>");
@@ -142,11 +147,17 @@ public class CRUDUtilisateur extends HttpServlet {
 
             out.println("  <input type=submit style='float:right' value='Supprimer'  />");
             out.println("  </form>");
+            
+            
+            out.println("  </td>");
+            out.println("   </tr>");
+            out.println("<tr>");
+            out.println(" <td>");
 
             out.println(" </td>");
             out.println(" </tr>");
             out.println(" <tr>");
-            out.println("<td>");
+            out.println("<td style='padding:10px; border:dotted'>");
 
             out.println(" <br/>");
             out.println(" <form action='/Slervothek/ServletTempoRechercheUser' method='POST'>");
@@ -190,12 +201,16 @@ public class CRUDUtilisateur extends HttpServlet {
             out.println("   </form>");
             
             
+            out.println("  </td>");
+            out.println("   </tr>");
+            out.println("<tr>");
+            out.println(" <td>");
             
             out.println("  </td>");
             out.println("   </tr>");
 
             out.println("<tr>");
-            out.println(" <td>");
+            out.println(" <td style='padding:10px; border:dotted'>");
 
             out.println("  <br/>");
             out.println("  <form action='/Slervothek/ServletTempoModificationUser' method='POST'>");
@@ -243,7 +258,7 @@ public class CRUDUtilisateur extends HttpServlet {
             out.println(" </tr>");
             out.println(" </table> ");
 
-            out.println("<input type=submit style='float:right' value='Modification du livre'  />");
+            out.println("<input type=submit style='float:right' value='Modification utilisateur'  />");
             out.println("  </form>");
 
             out.println(" </td>");
@@ -255,13 +270,50 @@ public class CRUDUtilisateur extends HttpServlet {
             
             
             
+            out.println(" <table>");
+            
+            out.println(" <tr>");
+            out.println(" <td style='text-align:center'>");
+                out.println("mail");
+                
+
+            
+            out.println(" </td>");
+            out.println(" <td>");
+                out.println("nom");
+            out.println(" </td>");
+            
+            out.println(" </td>");
+            out.println(" <td>");
+                out.println("prenom");
+            out.println(" </td>");
+            out.println(" </tr>");
+            
             for(int i = 0;i<users.size();i++){
             
-                out.println(users.get(i).getNom()+ " "+users.get(i).getPrenom());
+                
+            out.println(" <tr>");
+            out.println(" <td>");
+                out.println(" "+users.get(i).getMail());
+                
+
+            
+            out.println(" </td>");
+            out.println(" <td>");
+                out.println(" "+users.get(i).getNom());
+            out.println(" </td>");
+            out.println(" <td>");
+                out.println("  "+users.get(i).getPrenom());
+            out.println(" </td>");
+            out.println(" </tr>");
+            
+            
                   out.println("<br/>");
             
             }
             
+            
+            out.println(" </table>");
             
             out.println("  </body>");
             out.println(" </html>");

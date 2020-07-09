@@ -95,23 +95,33 @@ public class PageHomeUser extends HttpServlet {
             out.println("<p>Bonjour "+ prenom+" "+nom+",");
             out.println("<br/>");
             out.println("<br/>");
-            out.println("Vous avez à ce jour emprunté les livres suivants : ");
-            out.println("<br/>");
-            out.println("<br/>");
             
             
             
             List<Livre> livresEmprunte = cd.getLivresEmprunteParUtilisateur(mail);
             SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
-            for(int i=0; i< livresEmprunte.size();i++){
-                Date aRendreLe = livresEmprunte.get(i).getSortie();
-                Calendar c = Calendar.getInstance();
-                c.setTime(aRendreLe);
-                c.add(Calendar.DATE, 14);
-                livresEmprunte.get(i).setaRendre(new Date(c.getTimeInMillis()));
-                out.println("-Titre : <u>"+livresEmprunte.get(i).getTitre()+"</u>,de l'auteur : <u>"+livresEmprunte.get(i).getAuteur()+"</u>, emprunté le : <u>"+formater.format(livresEmprunte.get(i).getSortie())+"</u> et à rendre avant le : <u>"+formater.format(livresEmprunte.get(i).getaRendre())+"</u>");
+            
+            if(livresEmprunte.size() >0){
+                out.println("Vous avez à ce jour emprunté les livres suivants "+" : ");
+                out.println("<br/>");
+                out.println("<br/>");
+
+                for(int i=0; i< livresEmprunte.size();i++){
+                    Date aRendreLe = livresEmprunte.get(i).getSortie();
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(aRendreLe);
+                    c.add(Calendar.DATE, 14);
+                    livresEmprunte.get(i).setaRendre(new Date(c.getTimeInMillis()));
+                    out.println("-Titre : <u>"+livresEmprunte.get(i).getTitre()+"</u>,de l'auteur : <u>"+livresEmprunte.get(i).getAuteur()+"</u>, emprunté le : <u>"+formater.format(livresEmprunte.get(i).getSortie())+"</u> et à rendre avant le : <u>"+formater.format(livresEmprunte.get(i).getaRendre())+"</u>");
+                    out.println("<br/>");
+                }
+            }else{
+                
+                out.println("Vous n'avez actuellement aucun emprunt. ");
+                out.println("<br/>");
                 out.println("<br/>");
             }
+        
             
 
             

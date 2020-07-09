@@ -277,7 +277,7 @@ public class ConnectDatabase {
         List<Livre> listLivres = null;
         try {
             listLivres =new ArrayList<>();
-            rs =   this.cnx.createStatement().executeQuery("SELECT L.TITRE, L.AUTEUR, L.SORTIE, L.DISPONIBLE, U.NOM, U.PRENOM, U.MAIL, U.ROLe FROM LIVRE as L INNER JOIN EMPRUNT ON L.ID = EMPRUNT.LIVRE, UTILISATEUR as U INNER JOIN EMPRUNT ON U.ID = EMPRUNT.UTILISATEUR  WHERE U.MAIL LIKE '"+mail+"'");
+            rs =   this.cnx.createStatement().executeQuery("SELECT L.TITRE, L.AUTEUR, L.SORTIE, L.DISPONIBLE FROM LIVRE as L, EMPRUNT as E, UTILISATEUR as U WHERE E.LIVRE = L.ID AND E.UTILISATEUR = U.ID AND U.MAIL LIKE '"+mail+"'");
            while(rs.next()){
                Livre l = new Livre();
                l.setAuteur(rs.getString("AUTEUR"));
